@@ -1,4 +1,4 @@
-import { useState, form, label, input, button } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
@@ -13,10 +13,12 @@ function App() {
   }
 
   const listItem = cards.map(card => 
-    <div style={{border: "1px solid #000"}} key={card.id}>
-      <div>{card.title}</div> 
+    <div className='card' key={card.id}>
+      <div className='card_header'>
+        <div>{card.title}</div>
+        <button className='delete_btn' onClick={() => deleteCard(card)}>X</button>
+      </div>
       <div>{card.description}</div>
-      <button onClick={() => deleteCard(card)}>X</button>
     </div>
   )
 
@@ -37,16 +39,13 @@ function App() {
       description: description
     };
 
-    console.log("What is in: ", newCard);
-
     setCards([...cards, newCard]);
-
     setTitle("");
     setDescription("");
   }
 
   return (
-    <div className="App">
+    <div>
       <form onSubmit={handleSubmit}>
         <label>
           <input name='title'
@@ -60,7 +59,7 @@ function App() {
             onChange={handleDescriptionChange} 
           />
         </label>
-        <input type='submit' />
+        <button>Submit</button>
       </form>
 
       {cards.length === 0 ? "You have completed everything for today" : listItem}
