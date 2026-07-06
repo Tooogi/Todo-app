@@ -1,4 +1,4 @@
-import { useState, form, label, input } from 'react';
+import { useState, form, label, input, button } from 'react';
 import './App.css';
 
 function App() {
@@ -7,7 +7,18 @@ function App() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const listItem = cards.map(card => <div>{card.title} {card.description}</div>)
+  const deleteCard = (cardToRemove) => {
+    const removeCard = cards.filter(card => card.id !== cardToRemove.id)
+    setCards(removeCard);
+  }
+
+  const listItem = cards.map(card => 
+    <div style={{border: "1px solid #000"}} key={card.id}>
+      <div>{card.title}</div> 
+      <div>{card.description}</div>
+      <button onClick={() => deleteCard(card)}>X</button>
+    </div>
+  )
 
   function handleTitleChange(e) {
     setTitle(e.target.value);
@@ -21,9 +32,12 @@ function App() {
     e.preventDefault();
 
     const newCard = {
+      id: new Date(),
       title: title,
       description: description
     };
+
+    console.log("What is in: ", newCard);
 
     setCards([...cards, newCard]);
 
