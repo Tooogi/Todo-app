@@ -1,25 +1,15 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
 
-  const cards = [
-    {
-      "id": 1,
-      "title": "First card",
-      "description": "This is the description of the first card"
-    },
-    {
-      "id": 2,
-      "title": "Second card",
-      "description": "This is the description of the second card"
-    },
-  ]
-
+  const [cards, setCards] = useState([]);
+  
   const listItem = cards.map(card => <div>{card.title} {card.description}</div>)
 
   return (
     <div className="App">
-      {listItem}
+      {cards.length === 0 ? "You have completed everything for today" : listItem}
     </div>
   );
 }
